@@ -1,15 +1,9 @@
-import { StackProtocol } from './stack-protocol'
+import { StackProtocol } from './stack-protocol';
 
 class Stack<T> implements StackProtocol<T> {
-  private readonly items: Array<T> = []
-  private readonly maxItems: number = 0;
+  private readonly items: Array<T> = [];
 
-  constructor(maxItems: number, initialItems?: Array<T>) {
-    this.maxItems = maxItems;
-    if (initialItems) {
-      initialItems.forEach(item => this.items.push(item));
-    }
-  }
+  constructor(private maxItems: number = 0) {}
 
   size(): number { return this.items.length; }
 
@@ -18,18 +12,13 @@ class Stack<T> implements StackProtocol<T> {
   isFull(): boolean { return this.size() === this.maxItems; }
 
   stack(item: T): void {
-    if (this.isFull()) throw new Error('Stack error:: The stack is full!')
+    if (this.isFull()) throw new Error('Stack error:: The stack is full!');
     this.items.unshift(item);
   }
 
   unstack(): T {
-    if (this.isEmpty()) throw new Error('Unstack error:: The stack is empty!')
+    if (this.isEmpty()) throw new Error('Unstack error:: The stack is empty!');
     return this.items.shift();
-  }
-
-  pick(): T {
-    if (this.isEmpty()) throw new Error('Pick error:: The stack is empty!')
-    return this.items[0];
   }
 
   showStack() {
@@ -39,7 +28,6 @@ class Stack<T> implements StackProtocol<T> {
     console.log('-----------');
     console.log('Base');
   }
-
 }
 
 export { Stack };

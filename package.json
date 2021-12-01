@@ -1,0 +1,11 @@
+{
+  "name": "data-structures-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/joaovictornsv/data-structures-typescript.git",
+  "author": "Joao Victor Negreiros <joaovictornsv@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.11.11"
+  }
+}
