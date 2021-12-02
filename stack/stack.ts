@@ -1,30 +1,61 @@
+import { Node } from '../node/node';
 import { StackProtocol } from './stack-protocol';
 
 class Stack<T> implements StackProtocol<T> {
-  private readonly items: Array<T> = [];
+  private start: Node<T> | null = null
 
   constructor(private maxItems: number = 0) {}
 
-  size(): number { return this.items.length; }
+  size() {    
+    if (this.isEmpty()) return 0;
+    else {
+      let nodeAux = this.start;
+      let end = false;
+      let cont = 0;
+      while(!end) {
+        if (nodeAux !== null) {
+          cont += 1;
+          nodeAux = nodeAux.prox;
+        } else {
+          end = true;
+        }
+      }
 
-  isEmpty(): boolean { return this.size() === 0; }
+      return cont;
+    }
+  };
 
-  isFull(): boolean { return this.size() === this.maxItems; }
+  isEmpty() { return this.start === null; }
 
   stack(item: T): void {
-    if (this.isFull()) throw new Error('Stack error:: The stack is full!');
-    this.items.unshift(item);
+    let oldStart = this.start
+    this.start = new Node(item);
+    this.start.prox = oldStart;
   }
 
   unstack(): T {
     if (this.isEmpty()) throw new Error('Unstack error:: The stack is empty!');
-    return this.items.shift();
+    
+    let start = this.start
+    let startValue = start.value
+    this.start = this.start.prox;
+    start = null;
+    return startValue;
   }
 
   showStack() {
     console.log('Top');
     console.log('-----------');
-    this.items.forEach((item, index) => console.log(item));
+    let nodeAux = this.start;
+    let end = false;
+    while(!end) {
+      if (nodeAux !== null) {
+        process.stdout.write(`${nodeAux.value}\n`);
+        nodeAux = nodeAux.prox;
+      } else {
+        end = true;
+      }
+    }
     console.log('-----------');
     console.log('Base');
   }

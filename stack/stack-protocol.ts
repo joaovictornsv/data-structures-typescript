@@ -3,6 +3,5 @@ export interface StackProtocol<T> {
   unstack: () => T;
   size: () => number;
   isEmpty: () => boolean;
-  isFull: () => boolean;
   showStack: () => void;
 }

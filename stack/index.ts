@@ -13,6 +13,12 @@ try {
   myStack.stack(12);
   myStack.stack(4);
   myStack.showStack();
+
+  myStack.unstack();
+  myStack.unstack();
+  myStack.unstack();
+  myStack.unstack();
+  myStack.showStack();
 } catch (e) {
   console.log(e.message);
 }
