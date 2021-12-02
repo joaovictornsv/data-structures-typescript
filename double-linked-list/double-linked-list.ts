@@ -1,7 +1,7 @@
-import { LinkedListProtocol } from './linked-list-protocol';
-import { Node } from '../node/node';
+import { DoubleLinkedListProtocol } from './double-linked-list-protocol';
+import { DoubleLinkedNode as Node } from './double-linked-node/double-linked-node';
 
-class LinkedList<T> implements LinkedListProtocol<T> {
+class DoubleLinkedList<T> implements DoubleLinkedListProtocol<T> {
   private start: Node<T> | null = null;
 
   private getLast(): Node<T> | null {
@@ -25,8 +25,14 @@ class LinkedList<T> implements LinkedListProtocol<T> {
     const node = new Node(item);
     const lastNode = this.getLast();
 
-    if(lastNode === null) this.start = node;
-    else lastNode.prox = node;
+    if (lastNode === null) {      
+      node.prev = null;
+      this.start = node;
+    }
+    else {
+      node.prev = lastNode;
+      lastNode.prox = node;
+    }    
   };
 
   isEmpty() { return this.start === null; }
@@ -69,16 +75,38 @@ class LinkedList<T> implements LinkedListProtocol<T> {
     }
   };
 
-  showList() {
+  showList(mode: 'normal' | 'reverse' = 'normal') {
     if (this.isEmpty()) {
       console.log('The list is empty!');
-    } else {
+    } else
+
+    if (mode === 'normal') {
       let nodeAux = this.start;
       let end = false;
-      while(!end) {
-        if (nodeAux.prox !== null) {
-          process.stdout.write(`${nodeAux.value} -> `);
+      while(!end) {      
+        if (nodeAux.prev === null) {
+          process.stdout.write(`null <- ${nodeAux.value} <-> `);
           nodeAux = nodeAux.prox;
+        } else
+        if (nodeAux.prox !== null) {
+          process.stdout.write(`${nodeAux.value} <-> `);
+          nodeAux = nodeAux.prox;
+        } else {
+          process.stdout.write(`${nodeAux.value} -> null\n`);
+          end = true;
+        }
+      }
+    } else if (mode === 'reverse') {
+      let nodeAux = this.getLast();
+      let end = false;
+      while(!end) {      
+        if (nodeAux.prox === null) {
+          process.stdout.write(`null <- ${nodeAux.value} <-> `);
+          nodeAux = nodeAux.prev;
+        } else
+        if (nodeAux.prev !== null) {
+          process.stdout.write(`${nodeAux.value} <-> `);
+          nodeAux = nodeAux.prev;
         } else {
           process.stdout.write(`${nodeAux.value} -> null\n`);
           end = true;
@@ -93,6 +121,7 @@ class LinkedList<T> implements LinkedListProtocol<T> {
     let node = this.start;
     let aux: Node<T> = null;
     let end = false;
+    let added = false;
     let cont = 0;
     while(!end) {
       if (node !== null) {
@@ -107,7 +136,8 @@ class LinkedList<T> implements LinkedListProtocol<T> {
         }
       } else {       
         if (cont === index) {
-          this.push(item);
+          this.push(item);          
+          added = true
           end = true;
           break;
         }
@@ -115,13 +145,22 @@ class LinkedList<T> implements LinkedListProtocol<T> {
       }
     }
 
-    const newNode = new Node(item);
-    aux.prox = newNode;
-    newNode.prox = node;
+    if (!added) {
+      const newNode = new Node(item);
+      if (aux !== null) {
+        aux.prox = newNode;
+        newNode.prev = aux;
+      } else if (node === this.start) {
+        this.start = newNode;
+        newNode.prev = null;
+      }
+      newNode.prox = node;
+      if (node !== null) node.prev = newNode;      
+    }
   }
 
   remove(index: number) {
-    if (this.isEmpty()) throw new Error('Impossible remvoe: empty list!');
+    if (this.isEmpty()) throw new Error('Impossible remove: empty list!');
 
     let node = this.start;
     let aux: Node<T> = null;
@@ -142,12 +181,15 @@ class LinkedList<T> implements LinkedListProtocol<T> {
 
     if (aux !== null) {
       aux.prox = node.prox;
+      if (node.prox !== null) node.prox.prev = aux;
     }
     if (node === this.start) {
       this.start = node.prox;
-      node = null;
+      if (node.prox !== null) node.prox.prev = this.start;
+      this.start.prev = null;
     }
+    node = null;
   }
 }
 
-export { LinkedList };
+export { DoubleLinkedList };

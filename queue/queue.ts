@@ -43,7 +43,7 @@ class Queue<T> implements QueueProtocol<T> {
   isEmpty() { return this.start === null; }
 
   addToQueue(item: T): void {
-    const node = new Node(item, null);
+    const node = new Node(item);
     const lastNode = this.getLast();
 
     if(lastNode === null) this.start = node;
