@@ -1,6 +1,6 @@
 import { Queue } from './queue';
 
-const myQueue = new Queue<number>(10);
+const myQueue = new Queue<number>();
 
 try {
   myQueue.addToQueue(4);
@@ -12,6 +12,13 @@ try {
   myQueue.addToQueue(54);
   myQueue.addToQueue(12);
   myQueue.addToQueue(9);
+  myQueue.showQueue();
+
+  myQueue.unline();
+  myQueue.unline();
+  myQueue.unline();
+
+
   myQueue.showQueue();
 } catch (e) {
   console.log(e.message);

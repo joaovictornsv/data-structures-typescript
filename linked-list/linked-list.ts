@@ -1,5 +1,5 @@
 import { LinkedListProtocol } from './linked-list-protocol';
-import { Node } from './node/node';
+import { Node } from '../node/node';
 
 class LinkedList<T> implements LinkedListProtocol<T> {
   private start: Node<T> | null = null;
@@ -134,10 +134,15 @@ class LinkedList<T> implements LinkedListProtocol<T> {
       } else {
         throw new Error('Impossible insert: list not have this index!');
       }
-    }
+    }    
 
-    aux.prox = node.prox;
-    node = null;
+    if (aux !== null) {
+      aux.prox = node.prox;
+    }
+    if (node === this.start) {
+      this.start = node.prox;
+      node = null;
+    }
   }
 }
 

@@ -3,6 +3,5 @@ export interface QueueProtocol<T> {
   unline: () => T;
   size: () => number;
   isEmpty: () => boolean;
-  isFull: () => boolean;
   showQueue: () => void;
 }

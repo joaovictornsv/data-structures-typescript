@@ -14,10 +14,10 @@ myLinkedList.push(6);
 myLinkedList.push(7);
 console.log('size', myLinkedList.size())
 
-myLinkedList.remove(4);
+myLinkedList.remove(0);
 myLinkedList.showList();
 console.log('size', myLinkedList.size())
 
-myLinkedList.insert(4, 8);
+myLinkedList.insert(4, 7);
 
 myLinkedList.showList();
