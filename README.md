@@ -88,6 +88,6 @@ Em uma "Pilha" podemos realizar as seguintes operações básicas:
 ---
 
 <div>
-  <img align="left" src="https://github.com/joaovictornsv.png" width=35 alt="Profile"/> &nbsp;
+  <img align="left" src="https://github.com/joaovictornsv.png" width=35 alt="Profile"/>
   <sub>Made with 💚 by <a href="https://github.com/joaovictornsv">João Victor</a></sub>
 </div>
