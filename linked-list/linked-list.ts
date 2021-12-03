@@ -1,5 +1,5 @@
 import { LinkedListProtocol } from './linked-list-protocol';
-import { Node } from '../node/node';
+import { Node } from '../utils/node/node';
 
 class LinkedList<T> implements LinkedListProtocol<T> {
   private start: Node<T> | null = null;

@@ -1,4 +1,4 @@
-import { Node } from '../node/node';
+import { Node } from '../utils/node/node';
 import { StackProtocol } from './stack-protocol';
 
 class Stack<T> implements StackProtocol<T> {

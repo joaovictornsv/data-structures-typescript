@@ -1,5 +1,5 @@
 import { DoubleLinkedListProtocol } from './double-linked-list-protocol';
-import { DoubleLinkedNode as Node } from './double-linked-node/double-linked-node';
+import { DoubleLinkedNode as Node } from '../utils/double-linked-node/double-linked-node';
 
 class DoubleLinkedList<T> implements DoubleLinkedListProtocol<T> {
   private start: Node<T> | null = null;
